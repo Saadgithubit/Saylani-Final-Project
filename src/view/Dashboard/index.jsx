@@ -7,12 +7,14 @@ export default function Dashboard(){
 
     return(
         <>
+        <div>
          <div>
          <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a> 
       </div>
       <h1>Vite + React</h1>
+      <h2 className='text-blue-600 text-2xl'>Check Content</h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -23,7 +25,8 @@ export default function Dashboard(){
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p> */
+      </p> 
+      </div>
         </>
     )
 }
