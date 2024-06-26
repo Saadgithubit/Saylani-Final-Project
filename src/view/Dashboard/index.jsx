@@ -3,8 +3,10 @@ import reactLogo from '../../assets/react.svg'
 import './index.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setTheme } from '../../Store/themeSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function Dashboard(){
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const theme = useSelector(state => state.themeReducer.theme)
   const [count, setCount] = useState(0)
@@ -33,6 +35,8 @@ export default function Dashboard(){
           count is {count}
         </button>
         <button className='text-black' onClick={changeTheme}>Change Theme</button>
+        <button onClick={() => navigate('/signin')}>Go To Sign In</button>
+        <button onClick={() => navigate('/signup')}>Go To Sign Up</button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
