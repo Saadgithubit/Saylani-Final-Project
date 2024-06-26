@@ -1,12 +1,18 @@
-import './App.css'
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
+import { store, persistor } from "./Store/store";
 import Router from './Config/router'
-import Dashboard from './view/Dashboard'
 
 function App() {
 
   return (
     <>
-     <Router />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router />
+        </PersistGate>
+      </Provider>
     </>
   )
 }
