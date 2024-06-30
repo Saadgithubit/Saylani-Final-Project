@@ -35,9 +35,11 @@ console.log(email,password);
     }
     return (
         <>
-            <div style={{ background: backgroundColor }} className="w-screen h-screen flex items-center justify-center">
-                <div className="border-2 w-[30%] bg-[#FFFFFF] rounded-lg px-8 py-4 space-y-3">
-                    <h1 className="text-[#2D2E2D] font-bold text-3xl text-center">Login</h1>
+            <div className="w-screen h-screen flex items-center justify-center">
+                <div className="border-2 w-[40%] bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-3">
+                <div className='flex justify-center'>
+                        <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
+                    </div>
                     <div className=''>
                         <TextField
                             sx={{ width: '100%', marginTop: '10px', fontFamily: 'sans-serif' }}
@@ -83,10 +85,10 @@ console.log(email,password);
                             variant="standard"
                         />
                         <span className='flex font-sans justify-end mt-2 font-semibold text-[#26282B]'><p>Forget Password?</p></span>
-                        {!clickBtn ? <button onClick={signIn} className='bg-gradient-to-r from-[#5CCBDC] via-[#7894E7] to-[#C83BF0] w-full p-3 mt-4 rounded-xl text-white font-bold'>
+                        {!clickBtn ? <button onClick={signIn} className='bg-[#376ABE] w-full p-3 mt-4 rounded-xl text-white font-bold'>
                             Log In
                         </button> :
-                            <button className='bg-gradient-to-r from-[#5CCBDC] via-[#7894E7] to-[#C83BF0] w-full p-3 mt-4 rounded-xl text-white font-bold'>
+                            <button className='bg-[#376ABE] w-full p-3 mt-4 rounded-xl text-white font-bold'>
                                 <img className='w-7 m-auto' src='https://i.gifer.com/ZZ5H.gif' />
                             </button>}
                         <p className='mt-12 text-center'>

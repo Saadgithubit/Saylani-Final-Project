@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { EmailOutlined as EmailOutlinedIcon, LockOutlined as LockOutlinedIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,15 +11,18 @@ export default function Signup() {
     const navigate = useNavigate()
     const [fullName, setfullName] = useState()
     const [email, setemail] = useState()
+    const [cnic, setcnic] = useState()
     const [password, setpassword] = useState()
     const [conPassword, setconPassword] = useState()
     const [showPassword, setshowPassword] = useState(false)
     const [showconPassword, setshowconPassword] = useState(false)
     const [clickBtn, setclickBtn] = useState(false)
+    const [age, setAge] = useState('');
+
     const backgroundColor = 'linear-gradient(to bottom right, #5F99E2, #5C9FE1,#A050ED,#C53CF1,#915BEA)'
     console.log(fullName, email, password, conPassword);
 
-    const signUp = async() => {
+    const signUp = async () => {
         setclickBtn(true)
         if (!fullName || !email || !password || !conPassword) {
             Swal.fire({
@@ -58,18 +61,57 @@ export default function Signup() {
             setclickBtn(false)
         }
     }
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
     return (
         <>
-            <div style={{ background: backgroundColor }} className="w-screen h-screen flex items-center justify-center">
-                <div className="border-2 w-[30%] bg-[#FFFFFF] rounded-lg px-8 py-4 space-y-4">
-                    <h1 className="text-[#2D2E2D] font-bold text-3xl text-center">Sign Up</h1>
+            <div className="w-screen p-4 flex items-center justify-center">
+                <div className="border-2 w-[40%] h-auto m-4 bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-4">
+                    <div className='flex justify-center'>
+                        <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
+                    </div>
                     <div className=''>
+                        <FormControl sx={{ width: '100%' }}>
+                            <InputLabel id="demo-simple-select-helper-label">Select type</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                value={age}
+                                label="Select A Type"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={10}>Ten</MenuItem>
+                                <MenuItem value={20}>Twenty</MenuItem>
+                                <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                            <FormHelperText sx={{color: '#376ABE'}}>Are You Student Or Teacher?</FormHelperText>
+                        </FormControl>
                         <TextField
                             sx={{ width: '100%', marginTop: '20px', fontFamily: 'sans-serif' }}
                             placeholder='Enter Your Name'
                             onChange={(e) => setfullName(e.target.value)}
                             id="input-with-icon-textfield"
                             label="UserName"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EmailOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            variant="standard"
+                        />
+                        <TextField
+                            sx={{ width: '100%', marginTop: '20px', fontFamily: 'sans-serif' }}
+                            placeholder='Enter Your CNIC'
+                            type='number'
+                            onChange={(e) => setcnic(e.target.value)}
+                            id="input-with-icon-textfield"
+                            label="CNIC"
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -150,12 +192,12 @@ export default function Signup() {
                             }}
                             variant="standard"
                         />
-                        {!clickBtn? <button onClick={signUp} className='bg-gradient-to-r from-[#5CCBDC] via-[#7894E7] to-[#C83BF0] w-full p-3 mt-4 rounded-xl text-white font-bold'>
+                        {!clickBtn ? <button onClick={signUp} className='bg-[#376ABE] w-full p-3 mt-4 rounded-xl text-white font-bold'>
                             Sign Up
-                        </button>:
-                        <button className='bg-gradient-to-r from-[#5CCBDC] via-[#7894E7] to-[#C83BF0] w-full p-3 mt-4 rounded-xl text-white font-bold'>
-                        <img className='w-7 m-auto' src='https://i.gifer.com/ZZ5H.gif' />
-                        </button>}
+                        </button> :
+                            <button className='bg-[#376ABE] w-full p-3 mt-4 rounded-xl text-white font-bold'>
+                                <img className='w-7 m-auto' src='https://i.gifer.com/ZZ5H.gif' />
+                            </button>}
                         <p className='mt-12 text-center'>
                             Already Have An Account? <span onClick={() => navigate('/signin')} className='font-semibold pb-1 text-blue-500 ml-2 cursor-pointer hover:border-b-4 hover:text-[#B74EEE]'>Sign In</span>
                         </p>
