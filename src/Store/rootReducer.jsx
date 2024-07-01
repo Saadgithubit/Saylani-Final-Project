@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 
 import themeSlice from "./themeSlice";
-import colorSlice from "./colorSlicejsx";
+import drawerWidth from "./drawerWidth.jsx";
 const rootReducer = combineReducers({
    themeReducer: themeSlice.reducer,
-   colorReducer: colorSlice.reducer,
+   widthReducer: drawerWidth.reducer,
 })
 
 export default rootReducer

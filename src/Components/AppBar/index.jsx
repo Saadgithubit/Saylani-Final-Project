@@ -19,17 +19,19 @@ import DesktopMacOutlinedIcon from '@mui/icons-material/DesktopMacOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import MediaCard from '../Cards';
+import { useDispatch } from 'react-redux';
+import { setWidth } from '../../Store/drawerWidth';
 
 const drawerWidth = 240;
 
 
 export default function ResponsiveDrawer(props) {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
-
+    dispatch(setWidth(drawerWidth))
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
@@ -147,14 +149,6 @@ export default function ResponsiveDrawer(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Typography paragraph>
-                        <p className='text-3xl text-center my-4'>Courses</p>
-                    <div className='flex justify-between flex-wrap p-2'>
-                        <MediaCard />
-                        <MediaCard />
-                        <MediaCard />
-                    </div>
-                </Typography>
             </Box>
         </Box>
     );
