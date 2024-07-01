@@ -1,31 +1,49 @@
 import {
-    createBrowserRouter,
-    RouterProvider,
-  } from "react-router-dom";
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+} from "react-router-dom";
 import Dashboard from "../view/Dashboard";
 import Signin from "../view/Signin";
 import Signup from "../view/Signup";
+import AppBarSection from "../Components/AppBar"
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Dashboard/>,
-    },
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
       {
-        path: "/signin",
-        element: <Signin/>,
+        path: "/",
+        element: <Dashboard />,
       },
-      {
-        path: "/signup",
-        element: <Signup/>,
-      },
-  ]);
+    ]
+  },
 
-  function Router(){
-    return (
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+]);
 
-      <RouterProvider router={router} />
-    )
-  }
+function Layout ()  {
+  return (
+    <div>
+      <AppBarSection />
+      <Outlet />
+    </div>
+  )
+}
 
-  export default Router;
+function Router() {
+  return (
+
+    <RouterProvider router={router} />
+  )
+}
+
+export default Router;

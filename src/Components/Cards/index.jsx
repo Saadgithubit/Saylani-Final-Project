@@ -1,16 +1,15 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-export default function MediaCard() {
+import { IconButton, Card, CardActions, CardContent, CardMedia, Typography, } from '@mui/material';
+import {FolderOutlined as FolderOutlinedIcon, PermContactCalendarOutlined as PermContactCalendarOutlinedIcon} from '@mui/icons-material';
+export default function CardData() {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 320, Py: 4 }}>
+      <Typography sx={{background: '#0B73B7',color: 'white',padding: '30px'}}>
+          <a className='text-2xl cursor-pointer font-semibold inline-block w-max mb-2 hover:underline'>SMIT-10 (Sir Kashif)</a>
+          <a className='w-max cursor-pointer hover:underline'>MWF 11Am - 1 Pm</a>
+        </Typography>
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{ height: 'auto' }}
         image="/static/images/cards/contemplative-reptile.jpg"
         title="green iguana"
       />
@@ -23,9 +22,15 @@ export default function MediaCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
       </CardActions>
+      <div className='flex justify-end pr-4 py-2 border-t-2'>
+      <IconButton color="inherit">
+        <PermContactCalendarOutlinedIcon/>
+      </IconButton>
+      <IconButton color="inherit">
+        <FolderOutlinedIcon/>
+      </IconButton>
+      </div>
     </Card>
   );
 }
