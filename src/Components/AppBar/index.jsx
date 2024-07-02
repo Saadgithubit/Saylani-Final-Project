@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AssignmentOutlined as AssignmentOutlinedIcon, Home as HomeIcon } from '@mui/icons-material';
+import {
+    AssignmentOutlined as AssignmentOutlinedIcon, Home as HomeIcon,
+    PersonOutlineOutlined as PersonOutlineOutlinedIcon, ListAltOutlined as ListAltOutlinedIcon,
+    LogoutOutlined as LogoutOutlinedIcon
+} from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 
 export default function ResponsiveDrawer(props) {
@@ -19,10 +22,10 @@ export default function ResponsiveDrawer(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
     dispatch(setWidth(drawerWidth))
-    const displayData = [
-        { name: 'Home', icon: 'home' },
-        { name: 'Assignment', icon: 'assignment' },
-    ]
+    const displayData = {
+        top: [{ name: 'Home', icon: 'home' }, { name: 'Assignment', icon: 'assignment' },],
+        down: [{ name: 'Profile', icon: 'profile' }, { name: 'To Do', icon: 'todo' }],
+    }
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
@@ -37,7 +40,9 @@ export default function ResponsiveDrawer(props) {
             setMobileOpen(!mobileOpen);
         }
     };
-
+    const logOut = () => {
+        alert('Button Is Clicked')
+    }
     const drawer = (
         <div>
             <Typography variant="h6" noWrap component="div" sx={{ padding: '10px', display: 'flex', justifyContent: 'center' }}>
@@ -45,11 +50,11 @@ export default function ResponsiveDrawer(props) {
             </Typography>
             <Divider />
             <List>
-                {displayData.map((text, index) => {
+                {displayData.top.map((text, index) => {
                     const { name, icon } = text
                     return (
                         <ListItem key={index} disablePadding>
-                            <ListItemButton onClick={() => icon === 'home'?navigate('/'):navigate(`${icon}`)}>
+                            <ListItemButton onClick={() => icon === 'home' ? navigate('/') : navigate(`${icon}`)}>
                                 <ListItemIcon>
                                     {icon === 'home' && <HomeIcon />}
                                     {icon === 'assignment' && <AssignmentOutlinedIcon />}
@@ -63,16 +68,28 @@ export default function ResponsiveDrawer(props) {
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                {displayData.down.map((text, index) => (
+                    <ListItem key={index} disablePadding>
+                        <ListItemButton onClick={() => navigate(`${text.icon}`)}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {text.icon === 'profile' && <PersonOutlineOutlinedIcon />}
+                                {text.icon === 'todo' && <ListAltOutlinedIcon />}
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={text.name} />
                         </ListItemButton>
                     </ListItem>
                 ))}
+            </List>
+            <Divider />
+            <List>
+                <ListItem disablePadding>
+                    <ListItemButton onClick={logOut}>
+                        <ListItemIcon>
+                            <LogoutOutlinedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Logout'} />
+                    </ListItemButton>
+                </ListItem>
             </List>
         </div>
     );

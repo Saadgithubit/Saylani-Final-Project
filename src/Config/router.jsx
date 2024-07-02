@@ -8,6 +8,8 @@ import Signin from "../view/Signin";
 import Signup from "../view/Signup";
 import AppBarSection from "../Components/AppBar"
 import Assignment from "../view/Assignment";
+import Profile from "../view/Profile"
+import ToDo from "../view/Todo"
 import { Box } from "@mui/material";
 import { useSelector } from 'react-redux'
 
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: "/assignment",
         element: <Assignment />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/todo",
+        element: <ToDo />,
       },
     ]
   },
