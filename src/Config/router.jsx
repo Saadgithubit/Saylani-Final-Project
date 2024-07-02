@@ -7,6 +7,7 @@ import Dashboard from "../view/Dashboard";
 import Signin from "../view/Signin";
 import Signup from "../view/Signup";
 import AppBarSection from "../Components/AppBar"
+import Assignment from "../view/Assignment";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/assignment",
+        element: <Assignment />,
       },
     ]
   },

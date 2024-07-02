@@ -3,7 +3,7 @@ import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, 
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import { DesktopMacOutlined as DesktopMacOutlinedIcon, AssignmentOutlined as AssignmentOutlinedIcon, Home as HomeIcon } from '@mui/icons-material';
+import { AssignmentOutlined as AssignmentOutlinedIcon, Home as HomeIcon } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -19,7 +19,10 @@ export default function ResponsiveDrawer(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
     dispatch(setWidth(drawerWidth))
-    // const displayData = [{ name: 'Home', iconName: }]
+    const displayData = [
+        { name: 'Home', icon: 'home' },
+        { name: 'Assignment', icon: 'assignment' },
+    ]
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
@@ -42,16 +45,21 @@ export default function ResponsiveDrawer(props) {
             </Typography>
             <Divider />
             <List>
-                {['Dashboard', 'Assignment', 'Profile', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <DesktopMacOutlinedIcon /> : <AssignmentOutlinedIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                {displayData.map((text, index) => {
+                    const { name, icon } = text
+                    return (
+                        <ListItem key={index} disablePadding>
+                            <ListItemButton onClick={() => icon === 'home'?navigate('/'):navigate(`${icon}`)}>
+                                <ListItemIcon>
+                                    {icon === 'home' && <HomeIcon />}
+                                    {icon === 'assignment' && <AssignmentOutlinedIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={name} />
+                            </ListItemButton>
+                        </ListItem>
+                    )
+
+                })}
             </List>
             <Divider />
             <List>
@@ -95,7 +103,12 @@ export default function ResponsiveDrawer(props) {
                     <Typography variant="h6" noWrap component="div">
                         UserName
                     </Typography>
-                    <Button sx={{ background: '#386BC0', color: 'white', padding: '10px' }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
+                    <Button sx={{
+                        background: '#386BC0',
+                        color: 'white',
+                        padding: '10px',
+                        ":hover": { background: '#23288D' }
+                    }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
             <Box
