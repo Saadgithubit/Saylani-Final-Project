@@ -8,6 +8,9 @@ import Signin from "../view/Signin";
 import Signup from "../view/Signup";
 import AppBarSection from "../Components/AppBar"
 import Assignment from "../view/Assignment";
+import { Box } from "@mui/material";
+import { useSelector } from 'react-redux'
+
 
 const router = createBrowserRouter([
   {
@@ -35,11 +38,18 @@ const router = createBrowserRouter([
   },
 ]);
 
-function Layout ()  {
+function Layout() {
+  const drawerWidth = useSelector(state => state.widthReducer.width)
+
   return (
     <div>
       <AppBarSection />
-      <Outlet />
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, }}
+      >
+        <Outlet />
+      </Box>
     </div>
   )
 }
