@@ -4,7 +4,7 @@ import CoursesTable from '../../Components/coursesTable'
 export default function Dashboard() {
   return (
     <>
-      <CardData />
+      <CardData goto={'/assignment'} />
       <CoursesTable />
     </>
   )

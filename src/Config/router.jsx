@@ -12,6 +12,8 @@ import Profile from "../view/Profile"
 import ToDo from "../view/Todo"
 import { Box } from "@mui/material";
 import { useSelector } from 'react-redux'
+import TeachersDashboard from "../Teachers/teachersView/Dashboard";
+import TeachersAssignment from "../Teachers/teachersView/Assignment/inedx";
 
 
 const router = createBrowserRouter([
@@ -23,6 +25,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Dashboard />,
       },
+
       {
         path: "/assignment",
         element: <Assignment />,
@@ -37,7 +40,20 @@ const router = createBrowserRouter([
       },
     ]
   },
-
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        path: "/teachersdashboard",
+        element: <TeachersDashboard />,
+      },
+      {
+        path: "/teachersassignment",
+        element: <TeachersAssignment />,
+      },
+    ]
+  },
   {
     path: "/signin",
     element: <Signin />,
@@ -63,7 +79,21 @@ function Layout() {
     </div>
   )
 }
+function TeachersLayout() {
+  const drawerWidth = useSelector(state => state.widthReducer.width)
 
+  return (
+    <div>
+      <AppBarSection />
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, }}
+      >
+        <Outlet />
+      </Box>
+    </div>
+  )
+}
 function Router() {
   return (
 
