@@ -13,7 +13,7 @@ import ToDo from "../view/Todo"
 import { Box } from "@mui/material";
 import { useSelector } from 'react-redux'
 import TeachersDashboard from "../Teachers/teachersView/Dashboard";
-import TeachersAssignment from "../Teachers/teachersView/Assignment/inedx";
+import TeachersAssignment from "../Teachers/teachersView/Assignment/index";
 
 
 const router = createBrowserRouter([
@@ -45,17 +45,21 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/teachersdashboard",
+        path: "/teacher",
         element: <TeachersDashboard />,
       },
       {
-        path: "/teachersassignment",
+        path: "/teacherassignment",
         element: <TeachersAssignment />,
       },
     ]
   },
   {
     path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/teachersignin",
     element: <Signin />,
   },
   {

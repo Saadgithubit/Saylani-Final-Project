@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
     AssignmentOutlined as AssignmentOutlinedIcon, Home as HomeIcon,
     PersonOutlineOutlined as PersonOutlineOutlinedIcon, ListAltOutlined as ListAltOutlinedIcon,
-    LogoutOutlined as LogoutOutlinedIcon
+    LogoutOutlined as LogoutOutlinedIcon, PersonAddAltOutlined as PersonAddAltOutlinedIcon, NotificationsNoneOutlined as NotificationsNoneOutlinedIcon
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -120,6 +119,14 @@ export default function ResponsiveDrawer(props) {
                     <Typography variant="h6" noWrap component="div">
                         UserName
                     </Typography>
+                    <div>
+                        <IconButton sx={{ color: '#0B73B7' }}>
+                            <NotificationsNoneOutlinedIcon />
+                        </IconButton>
+                        <IconButton sx={{ color: '#0B73B7' }}>
+                            <PersonAddAltOutlinedIcon />
+                        </IconButton>
+                    </div>
                     <Button sx={{
                         background: '#386BC0',
                         color: 'white',

@@ -7,7 +7,7 @@ export default function CardData(props) {
   const navigate = useNavigate()
   return (
     <Card sx={{ maxWidth: 320, Py: 6 }}>
-      <Typography onClick={() => navigate('assignment')} sx={{ background: '#0B73B7', color: 'white', padding: '30px' }}>
+      <Typography onClick={() => navigate(page)} sx={{ background: '#0B73B7', color: 'white', padding: '30px' }}>
         <a className='text-2xl cursor-pointer font-semibold inline-block w-max mb-2 hover:underline'>SMIT-10 (Sir Kashif)</a>
         <a className='w-max cursor-pointer hover:underline'>MWF 11Am - 1 Pm</a>
       </Typography>
