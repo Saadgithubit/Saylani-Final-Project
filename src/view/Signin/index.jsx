@@ -12,9 +12,9 @@ export default function Signin() {
     const [password, setpassword] = useState()
     const [clickBtn, setclickBtn] = useState(false)
     const [showPassword, setshowPassword] = useState(false)
-    const backgroundColor = 'linear-gradient(to bottom right, #5F99E2, #5C9FE1,#A050ED,#C53CF1,#915BEA)'
-console.log(email,password);
-    const signIn = async() => {
+    const api = 'https://back-end-mocha-alpha.vercel.app'
+
+    const signIn = async () => {
         setclickBtn(true)
         if (!email || !password) {
             Swal.fire({
@@ -25,19 +25,26 @@ console.log(email,password);
             setclickBtn(false)
             return
         }
-        try {
-            await logIn({ email, password })
-            navigate('/')
-        }
-        catch (e) {
-            alert(e.message)
-        }
+        const res = await fetch(`${api}/students/login`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email, password
+            }),
+            credentials: "include"
+        });
+        const result = await res.json();
+
+        return result;
     }
     return (
         <>
             <div className="w-screen h-screen flex items-center justify-center">
                 <div className="border-2 w-[40%] bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-3">
-                <div className='flex justify-center'>
+                    <div className='flex justify-center'>
                         <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
                     </div>
                     <div className=''>

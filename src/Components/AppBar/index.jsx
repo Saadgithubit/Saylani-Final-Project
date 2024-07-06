@@ -23,7 +23,7 @@ export default function ResponsiveDrawer(props) {
     dispatch(setWidth(drawerWidth))
 
     const displayData = {
-        top: [{ name: 'Home', icon: 'home' }, { name: 'Assignment', icon: 'assignment' },],
+        top: [{ name: 'Home', icon: 'home' }, { name: 'Assignment', icon: 'assignments' },],
         down: [{ name: 'Profile', icon: 'profile' }, { name: 'To Do', icon: 'todo' }],
     };
     const handleDrawerClose = () => {
@@ -59,7 +59,7 @@ export default function ResponsiveDrawer(props) {
                             <ListItemButton onClick={() => icon === 'home' ? navigate('/') : navigate(`${icon}`)}>
                                 <ListItemIcon>
                                     {icon === 'home' && <HomeIcon />}
-                                    {icon === 'assignment' && <AssignmentOutlinedIcon />}
+                                    {icon === 'assignments' && <AssignmentOutlinedIcon />}
                                 </ListItemIcon>
                                 <ListItemText primary={name} />
                             </ListItemButton>
@@ -132,14 +132,14 @@ export default function ResponsiveDrawer(props) {
                     </div>
                     {
                         user?._id ?
-                        <p>{user.username}</p>
-                        :
-                        <Button sx={{
-                            background: '#386BC0',
-                            color: 'white',
-                            padding: '10px',
-                            ":hover": { background: '#23288D' }
-                        }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
+                            <p>{user.username}</p>
+                            :
+                            <Button sx={{
+                                background: '#386BC0',
+                                color: 'white',
+                                padding: '10px',
+                                ":hover": { background: '#23288D' }
+                            }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
                     }
                 </Toolbar>
             </AppBar>

@@ -12,15 +12,13 @@ export default function Signup() {
     const [fullName, setfullName] = useState()
     const [email, setemail] = useState()
     const [cnic, setcnic] = useState()
+    const [contact, setcontact] = useState()
     const [password, setpassword] = useState()
     const [conPassword, setconPassword] = useState()
     const [showPassword, setshowPassword] = useState(false)
     const [showconPassword, setshowconPassword] = useState(false)
     const [clickBtn, setclickBtn] = useState(false)
-    const [age, setAge] = useState('');
-
-    const backgroundColor = 'linear-gradient(to bottom right, #5F99E2, #5C9FE1,#A050ED,#C53CF1,#915BEA)'
-    console.log(fullName, email, password, conPassword);
+    const api = 'https://back-end-mocha-alpha.vercel.app'
 
     const signUp = async () => {
         setclickBtn(true)
@@ -52,15 +50,21 @@ export default function Signup() {
             setclickBtn(false)
             return
         }
-        try {
-            await register({ fullName, email, password })
-            navigate('/signin')
-        }
-        catch (e) {
-            alert(e.message)
-            setclickBtn(false)
-        }
-    }
+        const res = await fetch(`${api}/users/signup`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fullName, email, cnic, contact, password
+            }),
+            credentials: "include"
+        });
+        const result = await res.json();
+
+        console.log(result)
+    };
     const handleChange = (event) => {
         setAge(event.target.value);
     };
@@ -72,7 +76,7 @@ export default function Signup() {
                         <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
                     </div>
                     <div className=''>
-                        <FormControl sx={{ width: '100%' }}>
+                        {/* <FormControl sx={{ width: '100%' }}>
                             <InputLabel id="demo-simple-select-helper-label">Select type</InputLabel>
                             <Select
                                 labelId="demo-simple-select-helper-label"
@@ -88,7 +92,7 @@ export default function Signup() {
                                 <MenuItem value={20}>Student</MenuItem>
                             </Select>
                             <FormHelperText sx={{color: '#376ABE'}}>Are You Student Or Teacher?</FormHelperText>
-                        </FormControl>
+                        </FormControl> */}
                         <TextField
                             sx={{ width: '100%', marginTop: '20px', fontFamily: 'sans-serif' }}
                             placeholder='Enter Your Name'
@@ -111,6 +115,22 @@ export default function Signup() {
                             onChange={(e) => setcnic(e.target.value)}
                             id="input-with-icon-textfield"
                             label="CNIC"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EmailOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            variant="standard"
+                        />
+                        <TextField
+                            sx={{ width: '100%', marginTop: '20px', fontFamily: 'sans-serif' }}
+                            placeholder='Enter Your CNIC'
+                            type='number'
+                            onChange={(e) => setcontact(e.target.value)}
+                            id="input-with-icon-textfield"
+                            label="Contact Number"
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">

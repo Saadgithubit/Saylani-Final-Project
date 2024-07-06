@@ -33,7 +33,7 @@ const router = createBrowserRouter([
             path: "/",
             element: <Dashboard />,
           },
-    
+
           {
             path: "/assignments",
             element: <Assignment />,
@@ -50,14 +50,14 @@ const router = createBrowserRouter([
             path: "/teacher",
             element: <TeachersDashboard />,
           },
-          {
-            path: "/post-assignment",
-            element: <TeachersAssignment />,
-          },
           // {
-          //   path: "/teacherassignment",
+          //   path: "/post-assignment",
           //   element: <TeachersAssignment />,
-          // }
+          // },
+          {
+            path: "/teacherassignment",
+            element: <TeachersAssignment />,
+          }
         ]
       },
       {
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
   }
 ]);
 
-function MainLayout () {
+function MainLayout() {
   const user = useSelector(state => state.userReducer.user);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -85,15 +85,15 @@ function MainLayout () {
   useEffect(() => {
     checkUser()
   }, []);
-  
+
   async function checkUser() {
     try {
       const res = await checkAuth();
-  
+
       if (res?._id) {
         if (!user?._id) {
           const userData = await getUserData();
-          
+
           dispatch(setUser(userData?.userInfo));
         };
       } else {
@@ -109,7 +109,7 @@ function MainLayout () {
   useEffect(() => {
     checkPaths();
   }, [pathname, user]);
-  
+
   async function checkPaths() {
     if (user?._id) {
       if (user?.authType !== "teacher") {
@@ -117,7 +117,7 @@ function MainLayout () {
           navigate("/");
         };
       };
-      
+
       if (pathname == "/signin" || pathname == "signup" || pathname == "teachersignin") {
         navigate("/");
       };
