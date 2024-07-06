@@ -8,23 +8,24 @@ import {
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
 
 const drawerWidth = 300;
 
-
 export default function ResponsiveDrawer(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const user = useSelector(state => state.userReducer.user);
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
     dispatch(setWidth(drawerWidth))
+
     const displayData = {
         top: [{ name: 'Home', icon: 'home' }, { name: 'Assignment', icon: 'assignment' },],
         down: [{ name: 'Profile', icon: 'profile' }, { name: 'To Do', icon: 'todo' }],
-    }
+    };
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
@@ -39,9 +40,11 @@ export default function ResponsiveDrawer(props) {
             setMobileOpen(!mobileOpen);
         }
     };
+
     const logOut = () => {
         alert('Button Is Clicked')
-    }
+    };
+
     const drawer = (
         <div>
             <Typography variant="h6" noWrap component="div" sx={{ padding: '10px', display: 'flex', justifyContent: 'center' }}>
@@ -127,12 +130,17 @@ export default function ResponsiveDrawer(props) {
                             <PersonAddAltOutlinedIcon />
                         </IconButton>
                     </div>
-                    <Button sx={{
-                        background: '#386BC0',
-                        color: 'white',
-                        padding: '10px',
-                        ":hover": { background: '#23288D' }
-                    }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
+                    {
+                        user?._id ?
+                        <p>{user.username}</p>
+                        :
+                        <Button sx={{
+                            background: '#386BC0',
+                            color: 'white',
+                            padding: '10px',
+                            ":hover": { background: '#23288D' }
+                        }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
+                    }
                 </Toolbar>
             </AppBar>
             <Box

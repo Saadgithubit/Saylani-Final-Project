@@ -6,7 +6,7 @@ import userSlice from "./userSlice.jsx";
 const rootReducer = combineReducers({
    themeReducer: themeSlice.reducer,
    widthReducer: drawerWidth.reducer,
-   userReduce: userSlice.reducer,
+   userReducer: userSlice.reducer,
 })
 
 export default rootReducer
