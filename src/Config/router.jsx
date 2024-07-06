@@ -38,12 +38,6 @@ const router = createBrowserRouter([
         path: "/todo",
         element: <ToDo />,
       },
-    ]
-  },
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
       {
         path: "/teacher",
         element: <TeachersDashboard />,
@@ -51,7 +45,7 @@ const router = createBrowserRouter([
       {
         path: "/teacherassignment",
         element: <TeachersAssignment />,
-      },
+      }
     ]
   },
   {
@@ -69,7 +63,11 @@ const router = createBrowserRouter([
 ]);
 
 function Layout() {
-  const drawerWidth = useSelector(state => state.widthReducer.width)
+  const drawerWidth = useSelector(state => state.widthReducer.width);
+  const user = useSelector(state => state.userReducer.user);
+  const { pathname } = useL
+
+  
 
   return (
     <div>
