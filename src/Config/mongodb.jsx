@@ -105,4 +105,4 @@ const teacherLogout = async () => {
     return result;
 };
 
-export { checkAuth, getUserData, studentsignup, studentLogin };
+export { checkAuth, getUserData, studentsignup, studentLogin, studentLogout };

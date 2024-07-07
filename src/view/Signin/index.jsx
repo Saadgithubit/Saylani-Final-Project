@@ -58,7 +58,7 @@ export default function Signin() {
                                 sx={{ width: '100%', marginTop: '20px' }}
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder='Enter Your Password'
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setpassword(e.target.value)}
                                 id="input-with-icon-textfield"
                                 label="Password"
                                 InputProps={{
@@ -95,8 +95,8 @@ export default function Signin() {
                         </p>
                     </div>
                 </div>
-                {successMsg && <CustomAlert txt={successMsg} isErrMsg={false} />}
-                {errMsg && <CustomAlert txt={errMsg} isErrMsg={true} />}
+                {/* {successMsg && <CustomAlert txt={successMsg} isErrMsg={false} />}
+                {errMsg && <CustomAlert txt={errMsg} isErrMsg={true} />} */}
             </div >
         </>
     );
