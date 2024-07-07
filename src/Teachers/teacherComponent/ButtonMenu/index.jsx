@@ -3,15 +3,22 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import ModalForm from '../Modal';
 
 export default function ButtonMenu() {
+    const [openModal, setopenModal] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleOpen = (e) => {
+        setopenModal(true)
+
+    };
+    const handleClose = (e) => {
+        setopenModal(false)
+
     };
 
     return (
@@ -31,13 +38,14 @@ export default function ButtonMenu() {
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={() => setAnchorEl(null)}
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Assignment</MenuItem>
-                <MenuItem onClick={handleClose}>Material</MenuItem>
+                <MenuItem onClick={(e) => handleOpen(e)}>Assignment</MenuItem>
+                <MenuItem onClick={handleOpen}>Material</MenuItem>
+                <ModalForm handleModal={handleOpen} handleClose={handleClose} openModal={openModal} />
             </Menu>
         </div >
     );

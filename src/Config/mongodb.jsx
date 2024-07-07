@@ -1,5 +1,5 @@
-// const api = "https://student-submission-portal-back-end.vercel.app";
-const api = "http://localhost:3001";
+const api = "https://student-submission-portal-back-end.vercel.app";
+// const api = "http://localhost:3001";
 
 const checkAuth = async () => {
     const res = await fetch(`${api}/students/check-auth`, {
@@ -61,23 +61,21 @@ const teacherLogin = async (emailOrCnic, password) => {
     return result;
 };
 
-// const signup = async (username, email, password) => {
+const studentsignup = async (data) => {
 
-//     const res = await fetch(`${api}/users/signup`, {
-//         method: "POST",
-//         headers: {
-//             Accept: "application/json",
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//             username, email, password
-//         }),
-//         credentials: "include"
-//     });
-//     const result = await res.json();
+    const res = await fetch(`${api}/student/signup`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data }),
+        credentials: "include"
+    });
+    const result = await res.json();
 
-//     return result;
-// };
+    return result;
+};
 
 const studentLogout = async () => {
     const res = await fetch(`${api}/students/logout`, {
@@ -93,4 +91,4 @@ const studentLogout = async () => {
     return result;
 };
 
-export { checkAuth, getUserData };
+export { checkAuth, getUserData, studentsignup, studentLogin };

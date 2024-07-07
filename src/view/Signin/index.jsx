@@ -2,6 +2,7 @@ import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { EmailOutlined as EmailOutlinedIcon, LockOutlined as LockOutlinedIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { studentLogin } from '../../Config/mongodb';
 import Swal from 'sweetalert2'
 
 import { logIn } from '../../Config/firebase';
@@ -25,20 +26,7 @@ export default function Signin() {
             setclickBtn(false)
             return
         }
-        const res = await fetch(`${api}/students/login`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email, password
-            }),
-            credentials: "include"
-        });
-        const result = await res.json();
-
-        return result;
+        await studentLogin({ email, password })
     }
     return (
         <>

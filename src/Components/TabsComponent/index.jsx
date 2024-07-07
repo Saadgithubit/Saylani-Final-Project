@@ -45,7 +45,6 @@ function a11yProps(index) {
 // }
 
 const TabsComponent = ({ tabs }) => {
-    const { label, content, badgeContent, textColor } = tabs
     const [value, setValue] = useState(0);
     const [currentIndexColor, setcurrentIndexColor] = useState('')
 

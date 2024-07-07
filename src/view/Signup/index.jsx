@@ -1,10 +1,10 @@
-import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { EmailOutlined as EmailOutlinedIcon, LockOutlined as LockOutlinedIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { studentsignup } from '../../Config/mongodb';
 import Swal from 'sweetalert2'
 
-import { register } from '../../Config/firebase';
 
 export default function Signup() {
 
@@ -18,7 +18,7 @@ export default function Signup() {
     const [showPassword, setshowPassword] = useState(false)
     const [showconPassword, setshowconPassword] = useState(false)
     const [clickBtn, setclickBtn] = useState(false)
-    const api = 'https://back-end-mocha-alpha.vercel.app'
+    const api = 'https://links-ehps.onrender.com'
 
     const signUp = async () => {
         setclickBtn(true)
@@ -50,24 +50,8 @@ export default function Signup() {
             setclickBtn(false)
             return
         }
-        const res = await fetch(`${api}/users/signup`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                fullName, email, cnic, contact, password
-            }),
-            credentials: "include"
-        });
-        const result = await res.json();
-
-        console.log(result)
-    };
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+        await studentsignup({ fullName, email, cnic, contact, password })
+    }
     return (
         <>
             <div className="w-screen p-4 flex items-center justify-center">
@@ -75,24 +59,7 @@ export default function Signup() {
                     <div className='flex justify-center'>
                         <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
                     </div>
-                    <div className=''>
-                        {/* <FormControl sx={{ width: '100%' }}>
-                            <InputLabel id="demo-simple-select-helper-label">Select type</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select-helper"
-                                value={age}
-                                label="Select A Type"
-                                onChange={handleChange}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Teacher</MenuItem>
-                                <MenuItem value={20}>Student</MenuItem>
-                            </Select>
-                            <FormHelperText sx={{color: '#376ABE'}}>Are You Student Or Teacher?</FormHelperText>
-                        </FormControl> */}
+                    <div>
                         <TextField
                             sx={{ width: '100%', marginTop: '20px', fontFamily: 'sans-serif' }}
                             placeholder='Enter Your Name'
