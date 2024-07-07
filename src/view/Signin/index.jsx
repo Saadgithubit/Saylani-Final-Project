@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { studentLogin } from '../../Config/mongodb';
 import Swal from 'sweetalert2'
 
-import { logIn } from '../../Config/firebase';
-
 export default function Signin() {
     const navigate = useNavigate()
     const [email, setemail] = useState()
