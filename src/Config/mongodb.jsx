@@ -91,4 +91,11 @@ const studentLogout = async () => {
     return result;
 };
 
-export { checkAuth, getUserData, studentsignup, studentLogin };
+const getTeacherAssignment = async () => {
+    const res = await fetch(`https://links-ehps.onrender.com/assignment/get-assignment/668674f32aff4efcec1e31d8`);
+    const result = await res.json();
+
+    return result;
+};
+
+export { checkAuth, getUserData, studentsignup, studentLogin ,getTeacherAssignment};
