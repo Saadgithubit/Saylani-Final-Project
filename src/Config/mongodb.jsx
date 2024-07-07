@@ -91,4 +91,18 @@ const studentLogout = async () => {
     return result;
 };
 
+const teacherLogout = async () => {
+    const res = await fetch(`${api}/teachers/logout`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    });
+    const result = await res.json();
+
+    return result;
+};
+
 export { checkAuth, getUserData, studentsignup, studentLogin };

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -8,8 +8,17 @@ import {
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import {
+    Avatar,
+    Dropdown,
+    DropdownDivider,
+    DropdownHeader,
+    DropdownItem,
+} from "flowbite-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
+import { studentLogout } from '../../Config/mongodb.jsx';
+import { removeUser } from '../../Store/userSlice.jsx';
 
 const drawerWidth = 300;
 
@@ -18,14 +27,25 @@ export default function ResponsiveDrawer(props) {
     const navigate = useNavigate()
     const user = useSelector(state => state.userReducer.user);
     const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isClosing, setIsClosing] = React.useState(false);
-    dispatch(setWidth(drawerWidth))
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
+    const [errMsg, setErrMsg] = useState();
+    const [successMsg, setSuccessMsg] = useState();
+    
+    useEffect(() => {
+    dispatch(setWidth(drawerWidth));
+    }, []);
 
     const displayData = {
+<<<<<<< HEAD:src/Components/AppBar/index.jsx
         top: [{ name: 'Home', icon: 'home' }, { name: 'Assignment', icon: 'assignments' },],
         down: [{ name: 'Profile', icon: 'profile' }, { name: 'To Do', icon: 'todo' }],
+=======
+        top: [{ name: 'Home', icon: 'home', path: "/" }, { name: 'Assignments', icon: 'assignment', path: "/assignments" },],
+        down: [{ name: 'Profile', icon: 'profile', path: "/update-profile" }, { name: 'To-Do', icon: 'todo', path: "/todos" }],
+>>>>>>> c7389b8655a393e9cb87fe26a19e422e203f07ee:src/Components/Navbar/index.jsx
     };
+
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
@@ -41,8 +61,23 @@ export default function ResponsiveDrawer(props) {
         }
     };
 
-    const logOut = () => {
-        alert('Button Is Clicked')
+    const logout = async () => {
+        setErrMsg();
+        setSuccessMsg();
+
+        if (user.authType == "teacher") {
+
+        } else {
+            const res = await studentLogout();
+            if (res?.msg) {
+                dispatch(removeUser());
+            } else {
+                setErrMsg(res.err);
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            };
+        };
     };
 
     const drawer = (
@@ -72,7 +107,7 @@ export default function ResponsiveDrawer(props) {
             <List>
                 {displayData.down.map((text, index) => (
                     <ListItem key={index} disablePadding>
-                        <ListItemButton onClick={() => navigate(`${text.icon}`)}>
+                        <ListItemButton onClick={() => navigate(`${text.path}`)}>
                             <ListItemIcon>
                                 {text.icon === 'profile' && <PersonOutlineOutlinedIcon />}
                                 {text.icon === 'todo' && <ListAltOutlinedIcon />}
@@ -85,7 +120,7 @@ export default function ResponsiveDrawer(props) {
             <Divider />
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={logOut}>
+                    <ListItemButton onClick={logout}>
                         <ListItemIcon>
                             <LogoutOutlinedIcon />
                         </ListItemIcon>
@@ -132,7 +167,30 @@ export default function ResponsiveDrawer(props) {
                     </div>
                     {
                         user?._id ?
+<<<<<<< HEAD:src/Components/AppBar/index.jsx
                             <p>{user.username}</p>
+=======
+                            <>
+                                <Dropdown
+                                    arrowIcon={false}
+                                    inline
+                                    label={
+                                        <Avatar alt="User settings" img={user?.image} rounded />
+                                    }
+                                >
+                                    <DropdownHeader>
+                                        <span className="block text-sm bgcbk">Name: {user.username}</span>
+
+                                    </DropdownHeader>
+                                    <DropdownHeader>
+                                        <span className="block text-sm bgcbk">Email: {user.email}</span>
+                                    </DropdownHeader>
+                                    <DropdownHeader>
+                                        <span className="block text-sm bgcbk">Cnic: {user.cnic}</span>
+                                    </DropdownHeader>
+                                </Dropdown>
+                            </>
+>>>>>>> c7389b8655a393e9cb87fe26a19e422e203f07ee:src/Components/Navbar/index.jsx
                             :
                             <Button sx={{
                                 background: '#386BC0',
@@ -183,6 +241,8 @@ export default function ResponsiveDrawer(props) {
             >
                 <Toolbar />
             </Box>
+            {successMsg && <CustomAlert txt={successMsg} isErrMsg={false} />}
+                {errMsg && <CustomAlert txt={errMsg} isErrMsg={true} />}
         </Box>
     );
 }

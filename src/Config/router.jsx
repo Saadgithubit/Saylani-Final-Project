@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "../view/Dashboard";
 import Signin from "../view/Signin";
 import Signup from "../view/Signup";
-import AppBarSection from "../Components/AppBar"
+import Navbar from "../Components/Navbar"
 import Assignment from "../view/Assignment";
 import Profile from "../view/Profile"
 import ToDo from "../view/Todo"
@@ -38,12 +38,12 @@ const router = createBrowserRouter([
             path: "/assignments",
             element: <Assignment />,
           },
-          // {
-          //   path: "/profile-update",
-          //   element: <Profile />,
-          // },
           {
-            path: "/todo",
+            path: "/update-profile",
+            element: <Profile />,
+          },
+          {
+            path: "/todos",
             element: <ToDo />,
           },
           {
@@ -79,6 +79,7 @@ const router = createBrowserRouter([
 function MainLayout() {
   const user = useSelector(state => state.userReducer.user);
   const { pathname } = useLocation();
+  const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -97,7 +98,7 @@ function MainLayout() {
           dispatch(setUser(userData?.userInfo));
         };
       } else {
-        if (user?.uid) {
+        if (user?._id) {
           dispatch(removeUser());
         };
       };
@@ -108,10 +109,12 @@ function MainLayout() {
 
   useEffect(() => {
     checkPaths();
+    checkUser();
   }, [pathname, user]);
 
   async function checkPaths() {
     if (user?._id) {
+      setLoader(false);
       if (user?.authType !== "teacher") {
         if (pathname == "/post-assignment") {
           navigate("/");
@@ -122,11 +125,14 @@ function MainLayout() {
         navigate("/");
       };
     } else {
-      if (pathname == "/post-assignment" || pathname == "signup" || pathname == "teachersignin") {
-        navigate("/");
+      setLoader(false);
+      if (pathname == "/post-assignment" || pathname == "/signup" || pathname == "/teachersignin" || pathname == "/") {
+        navigate("/signin");
       };
     };
   };
+
+  if (loader) return <p>Loading</p>;
 
   return (
     <Outlet />
@@ -138,7 +144,7 @@ function Layout() {
 
   return (
     <div>
-      <AppBarSection />
+      <Navbar />
       <Box
         component="main"
         sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, }}
@@ -147,7 +153,8 @@ function Layout() {
       </Box>
     </div>
   )
-}
+};
+
 function TeachersLayout() {
   const drawerWidth = useSelector(state => state.widthReducer.width)
 
@@ -162,12 +169,13 @@ function TeachersLayout() {
       </Box>
     </div>
   )
-}
+};
+
 function Router() {
   return (
 
     <RouterProvider router={router} />
   )
-}
+};
 
 export default Router;
