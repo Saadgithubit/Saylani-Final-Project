@@ -48,9 +48,6 @@ export default function Signin() {
                     setSuccessMsg("Login successfully");
 
                     dispatch(setUser(res?.std));
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 1000);
                 } else {
                     setErrMsg(res.err);
                     setclickBtn(false);

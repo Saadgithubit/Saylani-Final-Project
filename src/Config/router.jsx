@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
           {
-            path: "/todo",
+            path: "/todos",
             element: <ToDo />,
           },
           {

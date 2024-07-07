@@ -1,5 +1,5 @@
-// const api = "https://student-submission-portal-back-end.vercel.app";
-const api = "http://localhost:3001";
+const api = "https://student-submission-portal-back-end.vercel.app";
+// const api = "http://localhost:3001";
 
 const checkAuth = async () => {
     const res = await fetch(`${api}/students/check-auth`, {
@@ -89,7 +89,7 @@ const studentLogout = async () => {
         credentials: "include"
     });
     const result = await res.json();
-
+    
     return result;
 };
 
