@@ -3,7 +3,7 @@ import Stream from "../../teacherComponent/Stream";
 import ClassWork from "../../teacherComponent/ClassWork";
 import TotalStudents from "../../teacherComponent/TotalStudents";
 
-export default function TeachersAssignment() {
+export default function TeachersClassroom() {
     const tabs = [
         { label: 'Stream', content: <Stream />, textColor: '#007B83' },
         { label: 'Class Work', content: <ClassWork />, textColor: '#007B83' },

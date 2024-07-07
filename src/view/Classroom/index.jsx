@@ -1,12 +1,18 @@
 import { useSelector } from 'react-redux'
 import { Box, Card, CardMedia, CardContent, Typography } from '@mui/material'
-import HdrAutoRoundedIcon from '@mui/icons-material/HdrAutoRounded';
-export default function Assignment() {
-  const drawerWidth = useSelector(state => state.widthReducer.width)
+import TabsComponent from '../../Components/TabsComponent';
+import StudentClassWork from '../../Components/StudentClassWork';
+import Assignment from '../../Components/Assignment';
+export default function Classroom() {
+  const tabs = [
+    { label: 'Class Work', content: <StudentClassWork />, textColor: '#007B83' },
+    { label: 'Assignments', content: <Assignment />, textColor: '#007B83' },
+  ]
   return (
     <>
       <Box>
-        <Card>
+        <TabsComponent tabs={tabs} />
+        {/* <Card>
           <div className='bg-[url("https://gstatic.com/classroom/themes/img_reachout.jpg")] bg-center bg-cover px-8 lg:py-24 py-16 text-white'>
             <Typography sx={{
               fontSize: { sm: 45 }
@@ -29,7 +35,7 @@ export default function Assignment() {
               Announce something to your class
             </Typography>
           </CardContent>
-        </Card>
+        </Card> */}
       </Box>
     </>
   )

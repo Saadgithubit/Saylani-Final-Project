@@ -12,13 +12,13 @@ import Dashboard from "../view/Dashboard";
 import Signin from "../view/Signin";
 import Signup from "../view/Signup";
 import Navbar from "../Components/Navbar"
-import Assignment from "../view/Assignment";
 import Profile from "../view/Profile"
 import ToDo from "../view/Todo"
 import TeachersDashboard from "../Teachers/teachersView/Dashboard";
-import TeachersAssignment from "../Teachers/teachersView/Assignment/index";
 import { checkAuth, getUserData } from "./mongodb.jsx";
 import { removeUser, setUser } from "../Store/userSlice.jsx";
+import Classroom from "../view/Classroom/index.jsx";
+import TeachersClassroom from "../Teachers/teachersView/Classroom/index";
 
 const router = createBrowserRouter([
   {
@@ -35,15 +35,15 @@ const router = createBrowserRouter([
           },
 
           {
-            path: "/assignments",
-            element: <Assignment />,
+            path: "/classroom",
+            element: <Classroom />,
           },
           {
-            path: "/update-profile",
+            path: "/profile",
             element: <Profile />,
           },
           {
-            path: "/todos",
+            path: "/todo",
             element: <ToDo />,
           },
           {
@@ -55,8 +55,8 @@ const router = createBrowserRouter([
           //   element: <TeachersAssignment />,
           // },
           {
-            path: "/teacherassignment",
-            element: <TeachersAssignment />,
+            path: "/teacherclassroom",
+            element: <TeachersClassroom />,
           }
         ]
       },
@@ -126,9 +126,9 @@ function MainLayout() {
       };
     } else {
       setLoader(false);
-      if (pathname == "/post-assignment" || pathname == "/signup" || pathname == "/teachersignin" || pathname == "/") {
-        navigate("/signin");
-      };
+      // if (pathname == "/post-assignment" || pathname == "/signup" || pathname == "/teachersignin" || pathname == "/") {
+      //   navigate("/signin");
+      // };
     };
   };
 

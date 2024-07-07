@@ -7,7 +7,7 @@ import {
     LogoutOutlined as LogoutOutlinedIcon, PersonAddAltOutlined as PersonAddAltOutlinedIcon, NotificationsNoneOutlined as NotificationsNoneOutlinedIcon
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
     Avatar,
     Dropdown,
@@ -23,6 +23,8 @@ import { removeUser } from '../../Store/userSlice.jsx';
 const drawerWidth = 300;
 
 export default function ResponsiveDrawer(props) {
+    const path = useLocation().pathname.slice(1)
+    console.log(path);
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(state => state.userReducer.user);
@@ -37,7 +39,7 @@ export default function ResponsiveDrawer(props) {
     }, []);
 
     const displayData = {
-        top: [{ name: 'Home', icon: 'home' }, { name: 'Assignment', icon: 'assignments' },],
+        top: [{ name: 'Home', icon: 'home' }, { name: 'Classroom', icon: 'classroom' },],
         down: [{ name: 'Profile', icon: 'profile' }, { name: 'To Do', icon: 'todo' }],
     };
 
@@ -86,10 +88,10 @@ export default function ResponsiveDrawer(props) {
                     const { name, icon } = text
                     return (
                         <ListItem key={index} disablePadding>
-                            <ListItemButton onClick={() => icon === 'home' ? navigate('/') : navigate(`${icon}`)}>
+                            <ListItemButton onClick={() => icon === 'home' ? navigate('/') : navigate(path === 'teacher' ? `${path}${icon}` : `${icon}`)}>
                                 <ListItemIcon>
                                     {icon === 'home' && <HomeIcon />}
-                                    {icon === 'assignments' && <AssignmentOutlinedIcon />}
+                                    {icon === 'classroom' && <AssignmentOutlinedIcon />}
                                 </ListItemIcon>
                                 <ListItemText primary={name} />
                             </ListItemButton>
@@ -102,7 +104,7 @@ export default function ResponsiveDrawer(props) {
             <List>
                 {displayData.down.map((text, index) => (
                     <ListItem key={index} disablePadding>
-                        <ListItemButton onClick={() => navigate(`${text.path}`)}>
+                        <ListItemButton onClick={() => navigate(path === 'teacher' ? `${path}${text.icon}` : `${text.icon}`)}>
                             <ListItemIcon>
                                 {text.icon === 'profile' && <PersonOutlineOutlinedIcon />}
                                 {text.icon === 'todo' && <ListAltOutlinedIcon />}
