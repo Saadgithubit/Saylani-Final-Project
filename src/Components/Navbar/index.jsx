@@ -8,13 +8,6 @@ import {
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-    Avatar,
-    Dropdown,
-    DropdownDivider,
-    DropdownHeader,
-    DropdownItem,
-} from "flowbite-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
 import { studentLogout } from '../../Config/mongodb.jsx';
@@ -137,8 +130,9 @@ export default function ResponsiveDrawer(props) {
             <AppBar
                 position="fixed"
                 sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
+                    width: { sm: `calc(100% - ${drawerWidth}px)`, md: `calc(100% - ${drawerWidth} * 2px)` },
                     ml: { sm: `${drawerWidth}px` },
+                    mr: { md: `${drawerWidth}px` },
                 }}
             >
                 <Toolbar sx={{ background: '#FBFBFB', py: 1.5, color: 'black', display: 'flex', justifyContent: 'space-between' }}>
@@ -151,9 +145,9 @@ export default function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        UserName
-                    </Typography>
+                    {user && <Typography variant="h6" noWrap component="div">
+                        {user.username}
+                    </Typography>}
                     <div>
                         <IconButton sx={{ color: '#0B73B7' }}>
                             <NotificationsNoneOutlinedIcon />
@@ -162,17 +156,6 @@ export default function ResponsiveDrawer(props) {
                             <PersonAddAltOutlinedIcon />
                         </IconButton>
                     </div>
-                    {
-                        user?._id ?
-                            <p>{user.username}</p>
-                            :
-                            <Button sx={{
-                                background: '#386BC0',
-                                color: 'white',
-                                padding: '10px',
-                                ":hover": { background: '#23288D' }
-                            }} onClick={() => navigate('/signin')} color="inherit">Login</Button>
-                    }
                 </Toolbar>
             </AppBar>
             <Box

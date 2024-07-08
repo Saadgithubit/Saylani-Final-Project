@@ -30,7 +30,7 @@ export default function Signin() {
     return (
         <>
             <div className="w-screen h-screen flex items-center justify-center">
-                <div className="border-2 w-[40%] bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-3">
+                <div className="border-2 w-full md:w-[80%] lg:w-[40%] bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-3">
                     <div className='flex justify-center'>
                         <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
                     </div>
