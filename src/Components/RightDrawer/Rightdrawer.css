@@ -13,11 +13,8 @@
 }
 
 .sub-container {
-    display: flex;
-    justify-content: flex-start !important;
-    align-items: flex-start;
-    gap: 4rem;
-    padding-top: 30px;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .btn button {
