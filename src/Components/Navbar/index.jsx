@@ -8,13 +8,6 @@ import {
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-    Avatar,
-    Dropdown,
-    DropdownDivider,
-    DropdownHeader,
-    DropdownItem,
-} from "flowbite-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
 import { studentLogout } from '../../Config/mongodb.jsx';
