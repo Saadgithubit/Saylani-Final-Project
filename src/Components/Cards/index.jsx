@@ -4,6 +4,7 @@ import { FolderOutlined as FolderOutlinedIcon, PermContactCalendarOutlined as Pe
 import { useNavigate } from 'react-router-dom';
 export default function CardData(props) {
   const page = props.goto
+  
   const navigate = useNavigate()
   return (
     <Card sx={{ maxWidth: 320, Py: 6 }}>
