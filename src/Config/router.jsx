@@ -7,18 +7,19 @@ import {
 } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "../view/Dashboard";
 import Signin from "../view/Signin";
 import Signup from "../view/Signup";
-import AppBarSection from "../Components/AppBar"
-import Assignment from "../view/Assignment";
+import Navbar from "../Components/Navbar"
 import Profile from "../view/Profile"
 import ToDo from "../view/Todo"
 import TeachersDashboard from "../Teachers/teachersView/Dashboard";
-import TeachersAssignment from "../Teachers/teachersView/Assignment/index";
 import { checkAuth, getUserData } from "./mongodb.jsx";
 import { removeUser, setUser } from "../Store/userSlice.jsx";
+import Classroom from "../view/Classroom/index.jsx";
+import TeachersClassroom from "../Teachers/teachersView/Classroom/index";
+import Rightdrawer from "../Components/RightDrawer/Rightdrawer.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,13 +36,13 @@ const router = createBrowserRouter([
           },
 
           {
-            path: "/assignments",
-            element: <Assignment />,
+            path: "/classroom",
+            element: <Classroom />,
           },
-          // {
-          //   path: "/profile-update",
-          //   element: <Profile />,
-          // },
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
           {
             path: "/todo",
             element: <ToDo />,
@@ -55,8 +56,8 @@ const router = createBrowserRouter([
           //   element: <TeachersAssignment />,
           // },
           {
-            path: "/teacherassignment",
-            element: <TeachersAssignment />,
+            path: "/teacherclassroom",
+            element: <TeachersClassroom />,
           }
         ]
       },
@@ -79,6 +80,7 @@ const router = createBrowserRouter([
 function MainLayout() {
   const user = useSelector(state => state.userReducer.user);
   const { pathname } = useLocation();
+  const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -97,7 +99,7 @@ function MainLayout() {
           dispatch(setUser(userData?.userInfo));
         };
       } else {
-        if (user?.uid) {
+        if (user?._id) {
           dispatch(removeUser());
         };
       };
@@ -108,10 +110,12 @@ function MainLayout() {
 
   useEffect(() => {
     checkPaths();
+    checkUser();
   }, [pathname, user]);
 
   async function checkPaths() {
     if (user?._id) {
+      setLoader(false);
       if (user?.authType !== "teacher") {
         if (pathname == "/post-assignment") {
           navigate("/");
@@ -122,11 +126,14 @@ function MainLayout() {
         navigate("/");
       };
     } else {
-      if (pathname == "/post-assignment" || pathname == "signup" || pathname == "teachersignin") {
-        navigate("/");
-      };
+      setLoader(false);
+      // if (pathname == "/post-assignment" || pathname == "/signup" || pathname == "/teachersignin" || pathname == "/") {
+      //   navigate("/signin");
+      // };
     };
   };
+
+  if (loader) return <p>Loading</p>;
 
   return (
     <Outlet />
@@ -138,16 +145,18 @@ function Layout() {
 
   return (
     <div>
-      <AppBarSection />
+      <Navbar />
       <Box
         component="main"
-        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, }}
+        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)`, md: `calc(100% - ${drawerWidth} * 2px)` }, ml: { sm: `${drawerWidth}px` } }}
       >
         <Outlet />
       </Box>
+      <Rightdrawer />
     </div>
   )
-}
+};
+
 function TeachersLayout() {
   const drawerWidth = useSelector(state => state.widthReducer.width)
 
@@ -162,12 +171,13 @@ function TeachersLayout() {
       </Box>
     </div>
   )
-}
+};
+
 function Router() {
   return (
 
     <RouterProvider router={router} />
   )
-}
+};
 
 export default Router;
