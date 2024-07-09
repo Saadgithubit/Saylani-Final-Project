@@ -98,4 +98,4 @@ const getTeacherAssignment = async () => {
     return result;
 };
 
-export { checkAuth, getUserData, studentsignup, studentLogin ,getTeacherAssignment};
+export { checkAuth, getUserData, studentsignup, studentLogin ,getTeacherAssignment,studentLogout};
