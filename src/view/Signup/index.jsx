@@ -2,7 +2,7 @@ import { IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } f
 import { EmailOutlined as EmailOutlinedIcon, LockOutlined as LockOutlinedIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { studentsignup } from '../../Config/mongodb';
+import { studentsignup,teachersignup } from '../../Config/mongodbmain';
 import Swal from 'sweetalert2'
 
 
@@ -50,7 +50,13 @@ export default function Signup() {
             setclickBtn(false)
             return
         }
-        await studentsignup({ fullName, email, cnic, contact, password })
+
+        console.log(window.location.pathname);
+        if(window.location.pathname == '/signup'){
+            await studentsignup({username: fullName, email, cnic,phone: contact, password })
+        }else{
+            await teachersignup({username: fullName, email, cnic,phone: contact, password })
+        }
     }
     return (
         <>

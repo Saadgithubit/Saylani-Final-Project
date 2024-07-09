@@ -46,14 +46,13 @@ const getUserData = async () => {
 
 const studentLogin = async (emailOrCnic, password) => {
     try {
-
-
+console.log(emailOrCnic, password);
         const res = await axios.put(`${api}/student/login`, emailOrCnic, password)
         console.log(res);
         return res.data
 
     } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
     }
 };
 const teachersignup = async (data) => {
@@ -65,7 +64,7 @@ const teachersignup = async (data) => {
         return res.data
 
     } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
     }
 
 }
@@ -78,7 +77,7 @@ const teacherLogin = async (emailOrCnic, password) => {
         return res.data
 
     } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
     }
 };
 
@@ -91,7 +90,7 @@ const studentsignup = async (data) => {
         return res.data
 
     } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
     }
 
 
@@ -244,4 +243,4 @@ const getTeacherAllCourses = async () => {
 
 
 
-export { checkAuth, getUserData, studentsignup, studentLogin, studentLogout };
+export { checkAuth, getUserData, studentsignup, studentLogin, studentLogout, teachersignup,teacherLogin,};

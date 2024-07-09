@@ -3,20 +3,21 @@ import { EmailOutlined as EmailOutlinedIcon, LockOutlined as LockOutlinedIcon, V
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { studentLogin } from '../../Config/mongodb';
+import { studentLogin, teacherLogin } from '../../Config/mongodbmain';
 import Swal from 'sweetalert2'
 
 export default function Signin() {
     const navigate = useNavigate()
-    const [email, setemail] = useState()
+    const [emailOrCnic, setemail] = useState()
     const [password, setpassword] = useState()
     const [clickBtn, setclickBtn] = useState(false)
     const [showPassword, setshowPassword] = useState(false)
     const api = 'https://back-end-mocha-alpha.vercel.app'
 
-    const signIn = async () => {
+    const signIn = async (e) => {
+        e.preventDefault()
         setclickBtn(true)
-        if (!email || !password) {
+        if (!emailOrCnic || !password) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -25,7 +26,13 @@ export default function Signin() {
             setclickBtn(false)
             return
         }
-        await studentLogin({ email, password })
+        if(window.location.pathname == '/signin'){
+
+            await studentLogin({ emailOrCnic, password })
+        }else{
+            
+            await teacherLogin({ emailOrCnic, password })
+        }
     }
     return (
         <>
@@ -40,7 +47,7 @@ export default function Signin() {
                                 required
                                 sx={{ width: '100%', marginTop: '10px', fontFamily: 'sans-serif' }}
                                 placeholder='Enter Your Email / Cnic'
-                                onChange={(e) => setEmailOrCnic(e.target.value)}
+                                onChange={(e) => setemail(e.target.value)}
                                 id="input-with-icon-textfield"
                                 label="Email / Cnic"
                                 InputProps={{
