@@ -91,11 +91,27 @@ const studentLogout = async () => {
     return result;
 };
 
+<<<<<<< HEAD
 const getTeacherAssignment = async () => {
     const res = await fetch(`https://links-ehps.onrender.com/assignment/get-assignment/668674f32aff4efcec1e31d8`);
+=======
+const teacherLogout = async () => {
+    const res = await fetch(`${api}/teachers/logout`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    });
+>>>>>>> 639ebf83fc53017c5a420f70107eeda0a1851b50
     const result = await res.json();
 
     return result;
 };
 
+<<<<<<< HEAD
 export { checkAuth, getUserData, studentsignup, studentLogin ,getTeacherAssignment};
+=======
+export { checkAuth, getUserData, studentsignup, studentLogin, studentLogout };
+>>>>>>> 639ebf83fc53017c5a420f70107eeda0a1851b50
