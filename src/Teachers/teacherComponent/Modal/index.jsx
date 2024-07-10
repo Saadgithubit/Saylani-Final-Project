@@ -40,7 +40,7 @@ export default function ModalForm(props) {
         formData.append('teacherId', "668a8a97314c28e9c88627d4");
 
         // Make POST request using Axios
-        axios.post('http://localhost:3005/assignment/post-assignment', formData)
+        axios.post('https://links-ehps.onrender.com/assignment/post-assignment', formData)
             .then(response => {
                 console.log('Success:', response.data);
                 // Close the modal or handle success as needed
