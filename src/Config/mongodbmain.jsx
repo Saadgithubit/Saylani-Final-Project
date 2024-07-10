@@ -239,8 +239,37 @@ const getTeacherAllCourses = async () => {
     }
 };
 
+const getTeacherAllAsigmment = async (courseId,batch) => {
+
+    // 1
+    try {
 
 
+        const res = await axios.post(`${api}/asignment/get-teacher-all-assignment`,courseId,batch)
+        console.log(res);
+        return res.data
+
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
+const getAsigmmentById = async (id) => {
+
+    // 1
+    try {
 
 
-export { checkAuth, getUserData, studentsignup, studentLogin, studentLogout, teachersignup,teacherLogin,};
+        const res = await axios.put(`${api}/asignment/get-assignment/${id}`)
+        console.log(res);
+        return res.data
+
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
+
+export { checkAuth, getUserData, studentsignup,getAsigmmentById, studentLogin,getTeacherAllAsigmment, studentLogout, teachersignup,teacherLogin,};
