@@ -26,11 +26,12 @@ export default function Signin() {
             setclickBtn(false)
             return
         }
-        if(window.location.pathname == '/signin'){
+        if (window.location.pathname == '/signin') {
 
-            await studentLogin({ emailOrCnic, password })
-        }else{
-            
+            const res = await studentLogin({ emailOrCnic, password })
+            { res.msg === 'User login successfully' ? navigate('/') : setclickBtn(false) }
+        } else {
+
             await teacherLogin({ emailOrCnic, password })
         }
     }

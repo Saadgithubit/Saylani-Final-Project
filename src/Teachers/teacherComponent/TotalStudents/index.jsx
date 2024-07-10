@@ -1,4 +1,13 @@
+import { useEffect } from 'react'
+import { getStudentData } from '../../../Config/mongodbmain'
 export default function TotalStudents() {
+    useEffect(() => {
+        fetchStudents()
+    }, [])
+
+    const fetchStudents = async () => {
+        const data = await getStudentData()
+    }
     return (
         <div className="flex-col space-y-12">
             <div className="border-b-2 w-[50%] p-2 border-[#007B83]">

@@ -166,10 +166,10 @@ function TeachersLayout() {
 
   return (
     <div>
-      <AppBarSection />
+      <Navbar />
       <Box
         component="main"
-        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, }}
+        sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)`, md: `calc(100% - ${drawerWidth} * 2px)` }, ml: { sm: `${drawerWidth}px` } }}
       >
         <Outlet />
       </Box>

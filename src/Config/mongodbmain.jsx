@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const api = "https://links-ehps.onrender.com";
 // const api = "http://localhost:3001";
@@ -26,7 +27,7 @@ const checkAuth = async () => {
     }
 };
 
-const getUserData = async () => {
+const getStudentData = async () => {
     const res = await fetch(`${api}/students/get-data`, {
         headers: {
             Accept: "application/json",
@@ -35,7 +36,7 @@ const getUserData = async () => {
         credentials: "include"
     });
     const result = await res.json();
-
+    console.log(result)
     return result;
 };
 
@@ -46,9 +47,13 @@ const getUserData = async () => {
 
 const studentLogin = async (emailOrCnic, password) => {
     try {
-console.log(emailOrCnic, password);
+        console.log(emailOrCnic, password);
         const res = await axios.put(`${api}/student/login`, emailOrCnic, password)
-        console.log(res);
+        Swal.fire({
+            title: "Good job!",
+            text: res.data.msg,
+            icon: "success"
+        });
         return res.data
 
     } catch (error) {
@@ -56,7 +61,6 @@ console.log(emailOrCnic, password);
     }
 };
 const teachersignup = async (data) => {
-    console.log(data);
 
     try {
         const res = await axios.post(`${api}/teacher/signup`, data)
@@ -82,13 +86,15 @@ const teacherLogin = async (emailOrCnic, password) => {
 };
 
 const studentsignup = async (data) => {
-    console.log(data);
 
     try {
         const res = await axios.post(`${api}/student/signup`, data)
-        console.log(res);
+        Swal.fire({
+            title: "Good job!",
+            text: res.data.msg,
+            icon: "success"
+        });
         return res.data
-
     } catch (error) {
         console.log(error.response.data);
     }
@@ -113,7 +119,7 @@ const studentsignup = async (data) => {
             const res = await axios.get(`${api}/assignment/get-assignment/${Assignmentid}`)
             console.log(res);
             return res.data
-    
+
         } catch (error) {
             console.log(error);
         }
@@ -272,4 +278,4 @@ const getAsigmmentById = async (id) => {
 };
 
 
-export { checkAuth, getUserData, studentsignup,getAsigmmentById, studentLogin,getTeacherAllAsigmment, studentLogout, teachersignup,teacherLogin,};
+export { checkAuth, studentsignup, getAsigmmentById, studentLogin, getTeacherAllAsigmment, studentLogout, teachersignup, teacherLogin, getStudentData };

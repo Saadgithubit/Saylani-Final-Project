@@ -10,14 +10,13 @@ import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
-import { studentLogout } from '../../Config/mongodb.jsx';
+import { studentLogout } from '../../Config/mongodbmain.jsx';
 import { removeUser } from '../../Store/userSlice.jsx';
 
 const drawerWidth = 300;
 
 export default function ResponsiveDrawer(props) {
-    const path = useLocation().pathname.slice(1)
-    console.log(path);
+    const path = useLocation().pathname.includes('teacher')
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(state => state.userReducer.user);
@@ -50,25 +49,14 @@ export default function ResponsiveDrawer(props) {
             setMobileOpen(!mobileOpen);
         }
     };
-
-    const logout = async () => {
-        setErrMsg();
-        setSuccessMsg();
-
-        if (user.authType == "teacher") {
-
+    const signOut = async () => {
+        if (!path) {
+            const res = await studentLogout()
+            console.log(res);
         } else {
-            const res = await studentLogout();
-            if (res?.msg) {
-                dispatch(removeUser());
-            } else {
-                setErrMsg(res.err);
-                setTimeout(() => {
-                    location.reload();
-                }, 1000);
-            };
-        };
-    };
+            alert('button is clicked')
+        }
+    }
 
     const drawer = (
         <div>
@@ -81,7 +69,7 @@ export default function ResponsiveDrawer(props) {
                     const { name, icon } = text
                     return (
                         <ListItem key={index} disablePadding>
-                            <ListItemButton onClick={() => icon === 'home' ? navigate('/') : navigate(path === 'teacher' ? `${path}${icon}` : `${icon}`)}>
+                            <ListItemButton onClick={() => icon === 'home' ? navigate(!path ? '/' : 'teacher') : navigate(!path ? `/${icon}` : `/teacher${icon}`)}>
                                 <ListItemIcon>
                                     {icon === 'home' && <HomeIcon />}
                                     {icon === 'classroom' && <AssignmentOutlinedIcon />}
@@ -97,7 +85,7 @@ export default function ResponsiveDrawer(props) {
             <List>
                 {displayData.down.map((text, index) => (
                     <ListItem key={index} disablePadding>
-                        <ListItemButton onClick={() => navigate(path === 'teacher' ? `${path}${text.icon}` : `${text.icon}`)}>
+                        <ListItemButton onClick={() => navigate(path ? `/teacher${text.icon}` : `/${text.icon}`)}>
                             <ListItemIcon>
                                 {text.icon === 'profile' && <PersonOutlineOutlinedIcon />}
                                 {text.icon === 'todo' && <ListAltOutlinedIcon />}
@@ -110,7 +98,7 @@ export default function ResponsiveDrawer(props) {
             <Divider />
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={logout}>
+                    <ListItemButton onClick={signOut}>
                         <ListItemIcon>
                             <LogoutOutlinedIcon />
                         </ListItemIcon>
