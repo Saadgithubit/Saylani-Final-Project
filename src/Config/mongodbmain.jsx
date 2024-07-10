@@ -239,13 +239,13 @@ const getTeacherAllCourses = async () => {
     }
 };
 
-const getTeacherAllAsigmment = async (courseId,batch) => {
+const getTeacherAllAsigmment = async () => {
 
     // 1
     try {
 
 
-        const res = await axios.post(`${api}/asignment/get-teacher-all-assignment`,courseId,batch)
+        const res = await axios.get(`${api}/assignment/get-assignment`)
         console.log(res);
         return res.data
 
@@ -261,7 +261,7 @@ const getAsigmmentById = async (id) => {
     try {
 
 
-        const res = await axios.put(`${api}/asignment/get-assignment/${id}`)
+        const res = await axios.get(`${api}/assignment/get-assignment/${id}`)
         console.log(res);
         return res.data
 
