@@ -18,6 +18,12 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    '@media (max-Width: 900px)': {
+        width: '80%'
+    },
+    '@media (max-Width: 600px)': {
+        width: '100%'
+    },
 };
 
 export default function ModalForm(props) {
@@ -28,12 +34,11 @@ export default function ModalForm(props) {
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
     };
-
     const handlePost = () => {
         // Prepare form data
         const formData = new FormData();
         formData.append('title', title);
-        
+
         formData.append('description', description);
         formData.append('content', file);
         formData.append('courseId', "668a8cbdf583e7e93af546fb");
@@ -52,7 +57,7 @@ export default function ModalForm(props) {
             });
     };
 
-    const { handleOpen, handleClose, openModal } = props;
+    const { handleClose, openModal } = props;
 
     return (
         <div>
@@ -85,7 +90,7 @@ export default function ModalForm(props) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    <Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Button
                             sx={{ mt: 2, gap: 2 }}
                             variant="contained"
@@ -98,6 +103,7 @@ export default function ModalForm(props) {
                                 onChange={handleFileChange}
                             />
                         </Button>
+                        <p className='mt-4 ml-4'>{file && file.name}</p>
                     </Box>
                     <Button
                         sx={{ mt: 2 }}

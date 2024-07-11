@@ -1,11 +1,14 @@
 import { useEffect } from 'react'
 import { getStudentData } from '../../../Config/mongodbmain'
+import { useSelector } from 'react-redux'
 export default function TotalStudents() {
     useEffect(() => {
         fetchStudents()
     }, [])
 
     const fetchStudents = async () => {
+        // const teacherName = useSelector(state => state.userReducer.user);
+        // console.log(teacherName);
         const data = await getStudentData()
     }
     return (

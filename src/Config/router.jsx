@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet, useLocation, useNavigate, } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, useNavigate, } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useSelector } from 'react-redux'
 import Dashboard from "../view/Dashboard";
@@ -72,7 +72,6 @@ function Layout() {
   const navigate = useNavigate()
   const drawerWidth = useSelector(state => state.widthReducer.width);
   const user = useSelector(state => state.userReducer.user);
-  console.log(user);
   if (!user) {
     navigate('/signin')
   }
