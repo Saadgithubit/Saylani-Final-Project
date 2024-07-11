@@ -64,7 +64,11 @@ const teachersignup = async (data) => {
 
     try {
         const res = await axios.post(`${api}/teacher/signup`, data)
-        console.log(res);
+        Swal.fire({
+            title: "Good job!",
+            text: res.data.msg,
+            icon: "success"
+        });
         return res.data
 
     } catch (error) {
@@ -77,8 +81,10 @@ const teacherLogin = async (emailOrCnic, password) => {
 
 
         const res = await axios.put(`${api}/teacher/login`, emailOrCnic, password)
-        console.log(res);
-
+        Swal.fire({
+            title: "Good job!",
+            text: res.data.msg,
+            icon: "success"
         return res.data
 
     } catch (error) {

@@ -56,13 +56,14 @@ export default function Signup() {
             const res = await studentsignup({ username: fullName, email, cnic, phone: contact, password })
             { res.msg === "student added successfully" ? navigate('/signin') : setclickBtn(false) }
         } else {
-            await teachersignup({ username: fullName, email, cnic, phone: contact, password })
+            const res = await teachersignup({ username: fullName, email, cnic, phone: contact, password })
+            { res.msg === "teacher added successfully" ? navigate('/signin') : setclickBtn(false) }
         }
     }
     return (
         <>
             <div className="w-screen p-4 flex items-center justify-center">
-                <div className="border-2 w-[40%] h-auto m-4 bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-4">
+                <div className="border-2 w-full md:w-[80%] lg:w-[40%] h-auto m-4 bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-4">
                     <div className='flex justify-center'>
                         <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
                     </div>
