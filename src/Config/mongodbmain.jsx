@@ -85,6 +85,7 @@ const teacherLogin = async (emailOrCnic, password) => {
             title: "Good job!",
             text: res.data.msg,
             icon: "success"
+        })
         return res.data
 
     } catch (error) {
@@ -146,15 +147,15 @@ const studentsignup = async (data) => {
 };
 
 const studentLogout = async () => {
-       try {
-            const res = await axios.put(`${api}/student/logout`)
-            console.log(res);
-            return res.data
+    try {
+        const res = await axios.put(`${api}/student/logout`)
+        console.log(res);
+        return res.data
 
-        } catch (error) {
-            console.log(error);
-        }
+    } catch (error) {
+        console.log(error);
     }
+}
 
 const teacherLogout = async () => {
     const res = await fetch(`${api}/teachers/logout`, {
