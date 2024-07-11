@@ -20,6 +20,7 @@ import { removeUser, setUser } from "../Store/userSlice.jsx";
 import Classroom from "../view/Classroom/index.jsx";
 import TeachersClassroom from "../Teachers/teachersView/Classroom/index";
 import Rightdrawer from "../Components/RightDrawer/Rightdrawer.jsx";
+import SeeAssignment from "../view/SeeAssignment/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
           {
             path: "/todo",
             element: <ToDo />,
+          },
+          {
+            path: "/seeassignment/:id",
+            element: <SeeAssignment />,
           },
           {
             path: "/teacher",

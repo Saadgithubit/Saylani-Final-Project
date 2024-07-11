@@ -3,10 +3,13 @@ import { EmailOutlined as EmailOutlinedIcon, LockOutlined as LockOutlinedIcon, V
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { studentLogin, teacherLogin } from '../../Config/mongodbmain';
 import Swal from 'sweetalert2'
 
+import { studentLogin, teacherLogin } from '../../Config/mongodbmain.jsx'
+import { setUser } from '../../Store/userSlice.jsx';
+
 export default function Signin() {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [emailOrCnic, setemail] = useState()
     const [password, setpassword] = useState()
@@ -29,10 +32,24 @@ export default function Signin() {
         if (window.location.pathname == '/signin') {
 
             const res = await studentLogin({ emailOrCnic, password })
-            { res.msg === 'User login successfully' ? navigate('/') : setclickBtn(false) }
+            console.log(res);
+            if (res.msg === 'User login successfully') {
+                dispatch(setUser(res.std))
+                navigate('/')
+            } else {
+                setclickBtn(false)
+            }
+
         } else {
 
-            await teacherLogin({ emailOrCnic, password })
+            const res = await teacherLogin({ emailOrCnic, password })
+            console.log(res);
+            if (res.msg === 'User login successfully') {
+                dispatch(setUser(res.teacher))
+                navigate('/teacher')
+            } else {
+                setclickBtn(false)
+            }
         }
     }
     return (

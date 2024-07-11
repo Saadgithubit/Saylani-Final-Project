@@ -20,6 +20,7 @@ export default function ResponsiveDrawer(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(state => state.userReducer.user);
+    console.log(user.username);
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -133,7 +134,10 @@ export default function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    {user && <Typography variant="h6" noWrap component="div">
+                    {user && !path && <Typography variant="h6" noWrap component="div">
+                        {user._doc.username}
+                    </Typography>}
+                    {user && path && <Typography variant="h6" noWrap component="div">
                         {user.username}
                     </Typography>}
                     <div>

@@ -15,8 +15,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { useNavigate } from "react-router-dom";
 
 export default function Assignment() {
+    const navigate = useNavigate()
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -46,7 +48,7 @@ export default function Assignment() {
 
         return (
             <React.Fragment>
-                <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                <TableRow onClick={() => navigate(`/seeassignment/${row._id}`)} sx={{ '& > *': { borderBottom: 'unset' }, cursor: 'pointer', ":hover": { background: '#F8F9FA' } }}>
                     <TableCell>
                         <IconButton
                             aria-label="expand row"
@@ -61,9 +63,6 @@ export default function Assignment() {
                     </TableCell>
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{formatDateTime(row.dueDate)}</TableCell>
-                    <TableCell align="center">
-                        <img src={row.content} alt={row.title} width="100" />
-                    </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -123,7 +122,6 @@ export default function Assignment() {
                         <TableCell>Title</TableCell>
                         <TableCell align="right">Description</TableCell>
                         <TableCell align="right">Due Date</TableCell>
-                        <TableCell align="right">Content</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
