@@ -16,10 +16,8 @@ const checkAuth = async () => {
 
     // return result;
     try {
-
-
         const res = await axios.post(`${api}/students/check-auth`)
-        console.log(res);
+        // console.log(res);
         return res.data
 
     } catch (error) {

@@ -6,7 +6,6 @@ import {
     PersonOutlineOutlined as PersonOutlineOutlinedIcon, ListAltOutlined as ListAltOutlinedIcon,
     LogoutOutlined as LogoutOutlinedIcon, PersonAddAltOutlined as PersonAddAltOutlinedIcon, NotificationsNoneOutlined as NotificationsNoneOutlinedIcon
 } from '@mui/icons-material';
-import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWidth } from '../../Store/drawerWidth';
@@ -20,7 +19,6 @@ export default function ResponsiveDrawer(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(state => state.userReducer.user);
-    console.log(user.username);
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -134,12 +132,12 @@ export default function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    {user && !path && <Typography variant="h6" noWrap component="div">
+                    {user && !path ? <Typography variant="h6" noWrap component="div">
                         {user._doc.username}
-                    </Typography>}
-                    {user && path && <Typography variant="h6" noWrap component="div">
+                    </Typography> : <div></div>}
+                    {user && path ? <Typography variant="h6" noWrap component="div">
                         {user.username}
-                    </Typography>}
+                    </Typography> : <div></div>}
                     <div>
                         <IconButton sx={{ color: '#0B73B7' }}>
                             <NotificationsNoneOutlinedIcon />

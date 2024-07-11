@@ -1,9 +1,13 @@
+import { useSelector } from 'react-redux';
 import CardData from '../../Components/Cards'
 import CoursesTable from '../../Components/coursesTable'
 import { useNavigate } from 'react-router-dom'
 
 export default function Dashboard() {
   const navigate = useNavigate()
+  const user = useSelector(state => state.userReducer.user);
+  { !user && navigate('/signin') }
+
   return (
     <>
       <CardData goto={'/classroom'} />
