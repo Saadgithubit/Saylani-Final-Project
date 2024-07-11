@@ -53,6 +53,7 @@ const studentLogin = async (emailOrCnic, password) => {
             text: res.data.msg,
             icon: "success"
         });
+        console.log(res.data)
         return res.data
 
     } catch (error) {
@@ -84,7 +85,6 @@ const teacherLogin = async (emailOrCnic, password) => {
             title: "Good job!",
             text: res.data.msg,
             icon: "success"
-        });
         return res.data
 
     } catch (error) {
@@ -146,18 +146,15 @@ const studentsignup = async (data) => {
 };
 
 const studentLogout = async () => {
-    const res = await fetch(`${api}/students/logout`, {
-        method: "PUT",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    });
-    const result = await res.json();
+       try {
+            const res = await axios.put(`${api}/student/logout`)
+            console.log(res);
+            return res.data
 
-    return result;
-};
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 const teacherLogout = async () => {
     const res = await fetch(`${api}/teachers/logout`, {
