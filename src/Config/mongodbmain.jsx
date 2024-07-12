@@ -1,7 +1,9 @@
 import axios from "axios";
 import Swal from 'sweetalert2'
+axios.defaults.withCredentials = true;
 
 const api = "https://links-ehps.onrender.com";
+
 // const api = "http://localhost:3001";
 
 const checkAuth = async () => {
@@ -45,7 +47,7 @@ const getStudentData = async () => {
 
 const studentLogin = async (emailOrCnic, password) => {
     try {
-        const res = await axios.put(`${api}/student/login`, emailOrCnic, password)
+        const res = await axios.put(`${api}/student/login`,{ emailOrCnic, password})
         Swal.fire({
             title: "Good job!",
             text: res.data.msg,

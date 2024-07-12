@@ -133,10 +133,10 @@ export default function ResponsiveDrawer(props) {
                         <MenuIcon />
                     </IconButton>
                     {user && !path ? <Typography variant="h6" noWrap component="div">
-                        {user._doc.username}
+                        {user._doc?.username}
                     </Typography> : <div></div>}
                     {user && path ? <Typography variant="h6" noWrap component="div">
-                        {user.username}
+                        {user?.username}
                     </Typography> : <div></div>}
                     <div>
                         <IconButton sx={{ color: '#0B73B7' }}>

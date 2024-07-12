@@ -29,9 +29,10 @@ export default function Signin() {
             setclickBtn(false)
             return
         }
+        console.log(emailOrCnic)
         if (window.location.pathname == '/signin') {
 
-            const res = await studentLogin({ emailOrCnic, password })
+            const res = await studentLogin( emailOrCnic, password )
             console.log(res);
             if (res.msg === 'User login successfully') {
                 dispatch(setUser(res.std))
@@ -42,7 +43,7 @@ export default function Signin() {
 
         } else {
 
-            const res = await teacherLogin({ emailOrCnic, password })
+            const res = await teacherLogin( emailOrCnic, password )
             console.log(res);
             if (res.msg === 'User login successfully') {
                 dispatch(setUser(res.teacher))
