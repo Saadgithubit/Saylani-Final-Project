@@ -122,6 +122,19 @@ const studentsignup = async (data) => {
 
     }
 
+    const gatallUsers = async () => {
+        try {
+            const res = await axios.get(`${api}/student/get-all-users`)
+            console.log(res);
+            return res.data
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    // https://links-ehps.onrender.com/
     const GetTeacherAssignment = async (Assignmentid) => {
         try {
             const res = await axios.get(`${api}/assignment/get-assignment/${Assignmentid}`)
