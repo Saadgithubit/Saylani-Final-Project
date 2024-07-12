@@ -29,26 +29,31 @@ export default function Signin() {
             setclickBtn(false)
             return
         }
-        console.log(emailOrCnic)
         if (window.location.pathname == '/signin') {
 
-            const res = await studentLogin( emailOrCnic, password )
+            const res = await studentLogin(emailOrCnic, password)
             console.log(res);
             if (res.msg === 'User login successfully') {
                 dispatch(setUser(res.std))
-                navigate('/')
+                setTimeout(() => {
+                    navigate('/')
+                }, 3000);
             } else {
+                alert(res)
                 setclickBtn(false)
             }
 
         } else {
 
-            const res = await teacherLogin( emailOrCnic, password )
+            const res = await teacherLogin(emailOrCnic, password)
             console.log(res);
             if (res.msg === 'User login successfully') {
                 dispatch(setUser(res.teacher))
-                navigate('/teacher')
+                setTimeout(() => {
+                    navigate('/teacher')
+                }, 3000);
             } else {
+                alert(res)
                 setclickBtn(false)
             }
         }
@@ -56,6 +61,10 @@ export default function Signin() {
     return (
         <>
             <div className="w-screen h-screen flex items-center justify-center">
+                <div className='w-full flex justify-center absolute top-[15%] font-bold'>
+                    {window.location.pathname === '/signin' ? <span><p>StudentEmail: saad@gmail.com</p><p>password: 123456</p></span>
+                        : <span><p>TeacherEmail: abdullah@gmail.com</p><p>password: 123456</p></span>}
+                </div>
                 <div className="border-2 w-full md:w-[80%] lg:w-[40%] bg-[#FBFBFB] shadow-lg rounded-lg px-8 py-4 space-y-3">
                     <div className='flex justify-center'>
                         <img width={100} src='https://student.saylaniwelfare.com/assets/logo-OpazD70S.png' />
@@ -79,7 +88,8 @@ export default function Signin() {
                                 variant="standard"
                             />
                             <TextField
-                                sx={{ width: '100%', marginTop: '20px' }}
+                                required
+                                sx={{ width: '100%', marginTop: '20px', fontFamily: 'sans-serif' }}
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder='Enter Your Password'
                                 onChange={(e) => setpassword(e.target.value)}
@@ -115,7 +125,7 @@ export default function Signin() {
                                 </button>}
                         </form>
                         <p className='mt-12 text-center'>
-                            Don't Have An Account? <span onClick={() => navigate('/signup')} className='font-semibold pb-1 text-blue-500 ml-2 cursor-pointer hover:border-b-4 hover:text-[#B74EEE]'>Sign Up</span>
+                            Don't Have An Account? <span onClick={() => navigate(window.location.pathname == '/signin' ? '/signup' : '/teachersignup')} className='font-semibold pb-1 text-blue-500 ml-2 cursor-pointer hover:border-b-4 hover:text-[#B74EEE]'>Sign Up</span>
                         </p>
                     </div>
                 </div>

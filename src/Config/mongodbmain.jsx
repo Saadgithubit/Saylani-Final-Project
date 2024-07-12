@@ -47,7 +47,7 @@ const getStudentData = async () => {
 
 const studentLogin = async (emailOrCnic, password) => {
     try {
-        const res = await axios.put(`${api}/student/login`,{ emailOrCnic, password})
+        const res = await axios.put(`${api}/student/login`, { emailOrCnic, password })
         Swal.fire({
             title: "Good job!",
             text: res.data.msg,
@@ -161,7 +161,14 @@ const studentsignup = async (data) => {
 
 const studentLogout = async () => {
     try {
-        const res = await axios.put(`${api}/student/logout`)
+        const res = await axios.put(`${api}/student/logout`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        });
         console.log(res);
         return res.data
 
