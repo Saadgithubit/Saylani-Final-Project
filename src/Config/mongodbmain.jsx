@@ -34,6 +34,10 @@ const opt = {
     options
     };
 opt.expires = getCookieExpxireTime();
+
+
+
+
 const checkAuth = async () => {
 
     try {
