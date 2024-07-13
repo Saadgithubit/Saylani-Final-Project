@@ -1,24 +1,43 @@
 import axios from "axios";
 import Swal from 'sweetalert2'
+import Cookies from 'js-cookie'
+
+
+
+// const api = "https://links-ehps.onrender.com";
+const api = "http://localhost:3005";
+const tokenName = Cookies.get('jwttoken')
+
+const headers = {
+    Authorization: `Bearer ${tokenName}`
+};
+console.log(tokenName);
+// http://localhost:3005
+// https://links-ehps.onrender.com
 axios.defaults.withCredentials = true;
+const options = {
+    secure: true,
+    sameSite: "None",
+    httpOnly: true,
+    expires: 100
+};
 
-const api = "https://links-ehps.onrender.com";
+const getCookieExpxireTime = () => {
+    const cookieExpireTime = 100 * 365 * 24 * 60 * 60 * 1000;
 
+    const expires = new Date(Date.now() + cookieExpireTime);
+
+    return expires;
+};
 // const api = "http://localhost:3001";
-
+const opt = { 
+    options
+    };
+opt.expires = getCookieExpxireTime();
 const checkAuth = async () => {
-    // const res = await fetch(`${api}/students/check-auth`, {
-    //     headers: {
-    //         Accept: "application/json",
-    //         "Content-Type": "application/json",
-    //     },
-    //     credentials: "include"
-    // });
-    // const result = await res.json();
 
-    // return result;
     try {
-        const res = await axios.post(`${api}/students/check-auth`)
+        const res = await axios.post(`${api}/student/check-auth`,null,headers)
         // console.log(res);
         return res.data
 
@@ -47,19 +66,35 @@ const getStudentData = async () => {
 
 const studentLogin = async (emailOrCnic, password) => {
     try {
-        const res = await axios.put(`${api}/student/login`, { emailOrCnic, password })
+        const res = await axios.put(`${api}/student/login`, { emailOrCnic, password });
+
+        // Assuming res.data.msg contains a success message
         Swal.fire({
             title: "Good job!",
             text: res.data.msg,
             icon: "success"
         });
-        console.log(res.data)
-        return res.data
 
+        console.log(res.data);
+
+        // Set cookie with secure and HTTP-only options
+        Cookies.set('jwttoken', res?.data?.token, { expires: 100 })
+
+
+        return res.data;
     } catch (error) {
-        console.log(error.response.data);
+        console.error("Error in studentLogin:", error);
+        // Handle error gracefully, e.g., show error message
+        Swal.fire({
+            title: "Error!",
+            text: "Failed to login. Please try again.",
+            icon: "error"
+        });
+        // Optionally rethrow the error to propagate it further
+        throw error;
     }
 };
+
 const teachersignup = async (data) => {
 
     try {
@@ -78,18 +113,32 @@ const teachersignup = async (data) => {
 }
 const teacherLogin = async (emailOrCnic, password) => {
     try {
+        const res = await axios.put(`${api}/teacher/login`, { emailOrCnic, password });
 
-
-        const res = await axios.put(`${api}/teacher/login`, emailOrCnic, password)
+        // Assuming res.data.msg contains a success message
         Swal.fire({
             title: "Good job!",
             text: res.data.msg,
             icon: "success"
-        })
-        return res.data
+        });
 
+        console.log(res.data);
+
+        // Set cookie with secure and HTTP-only options
+        Cookies.set('jwttoken', res?.data?.token, { expires: 100 })
+
+
+        return res.data;
     } catch (error) {
-        console.log(error.response.data);
+        console.error("Error in studentLogin:", error);
+        // Handle error gracefully, e.g., show error message
+        Swal.fire({
+            title: "Error!",
+            text: "Failed to login. Please try again.",
+            icon: "error"
+        });
+        // Optionally rethrow the error to propagate it further
+        throw error;
     }
 };
 
@@ -161,34 +210,50 @@ const studentsignup = async (data) => {
 
 const studentLogout = async () => {
     try {
-        const res = await axios.put(`${api}/student/logout`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            credentials: "include"
-        });
+        // Retrieve the token from cookies or wherever you store it
+
+        // Set headers with Authorization token
+        
+
+        // Make the API call with headers
+        const res = await axios.put(`${api}/student/logout`, null, { headers });
         console.log(res);
-        return res.data
+        if(res.data.msg){
+            
+            Cookies.remove('jwttoken')
+        }
+        // Assuming res.data contains logout success message or data
+        return res.data;
 
     } catch (error) {
-        console.log(error);
+        console.log("Error in studentLogout:", error);
+        // Handle error gracefully
+        throw error;
     }
-}
+};
 
 const teacherLogout = async () => {
-    const res = await fetch(`${api}/teachers/logout`, {
-        method: "PUT",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    });
-    const result = await res.json();
+    try {
+        // Retrieve the token from cookies or wherever you store it
 
-    return result;
+        // Set headers with Authorization token
+        
+
+        // Make the API call with headers
+        const res = await axios.put(`${api}/teacher/logout`, null, { headers });
+        console.log(res);
+        if(res.data.msg){
+            
+            Cookies.remove('jwttoken')
+        }
+        // Assuming res.data contains logout success message or data
+        return res.data;
+
+    } catch (error) {
+        console.log("Error in studentLogout:", error);
+        // Handle error gracefully
+        throw error;
+    }
 };
 
 
