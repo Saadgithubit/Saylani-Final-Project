@@ -41,8 +41,9 @@ opt.expires = getCookieExpxireTime();
 const checkAuth = async () => {
 
     try {
-        const res = await axios.post(`${api}/student/check-auth`,null,headers)
+        const res = await axios.post(`${api}/check-auth`,null,headers)
         // console.log(res);
+        
         return res.data
 
     } catch (error) {
